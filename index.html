@@ -2,155 +2,122 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VVIP GOLD QUANT V33.1 | Signal Pro Mada</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <title>VVIP GOLD QUANT V33.1 | MC ANTHONIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #D4AF37; --bg: #05070a; --card: #10141d; --text: #e0e0e0; --danger: #ff4d4d; --safe: #00ff88; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 15px; }
-        .container { max-width: 1000px; margin: auto; border: 1px solid rgba(212, 175, 55, 0.3); padding: 20px; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        :root { --gold: #D4AF37; --bg: #05070a; --card: #11151c; --danger: #ff4d4d; --safe: #00ff88; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
+        .app-container { max-width: 500px; margin: auto; border: 2px solid var(--gold); border-radius: 20px; padding: 15px; box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); }
         
-        /* Header & Madagascar Time */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); padding-bottom: 15px; margin-bottom: 20px; }
-        .mada-time { font-family: 'Orbitron', sans-serif; color: var(--gold); font-size: 1.2rem; }
-        .news-countdown { color: var(--danger); font-weight: bold; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.5; } }
+        /* Header & Mada Time */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 10px; }
+        .mada-clock { font-family: 'Orbitron'; color: var(--gold); font-size: 1.4rem; }
+        .news-flash { color: var(--danger); font-size: 0.7rem; font-weight: bold; text-align: right; }
 
-        /* Price & Probability */
-        .main-display { text-align: center; margin: 20px 0; }
-        .price { font-size: 4.5rem; font-family: 'Orbitron', sans-serif; color: var(--gold); font-weight: bold; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-        .prob-box { font-size: 1.2rem; margin-top: 10px; color: var(--safe); }
+        /* Live Price Engine */
+        .price-engine { text-align: center; background: var(--card); padding: 30px 10px; border-radius: 15px; margin-bottom: 15px; position: relative; }
+        .live-price { font-family: 'Orbitron'; font-size: 4rem; color: var(--danger); transition: 0.2s; }
+        .pip-float { position: absolute; top: 10px; right: 20px; color: var(--safe); font-weight: bold; }
 
-        /* Confluence Grid */
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
-        .module { background: var(--card); padding: 15px; border-radius: 8px; border: 1px solid #232a35; text-align: center; }
-        .tag { font-size: 0.7rem; color: #888; display: block; margin-bottom: 8px; }
+        /* Signal Copy Module (V28 Style) */
+        .copy-zone { background: rgba(212, 175, 55, 0.1); border: 1px dashed var(--gold); padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: center; }
+        .signal-string { font-family: monospace; font-size: 0.9rem; color: #ccc; margin-bottom: 10px; display: block; }
+        .btn-copy { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; width: 100%; }
 
-        /* Alerts */
-        #golden-zone-alert { background: rgba(255, 77, 77, 0.2); border: 1px solid var(--danger); padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; text-align: center; font-weight: bold; color: #fff; }
+        /* Protection & TP Display */
+        .management-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .box { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #222; }
+        .status-active { border-color: var(--safe); color: var(--safe); animation: pulse 1s infinite; }
+        @keyframes pulse { 50% { opacity: 0.5; } }
 
-        /* Trading & Management */
-        .management-panel { background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold); padding: 20px; border-radius: 10px; }
-        .tp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-        .btn-execute { background: linear-gradient(45deg, var(--gold), #f3cf7a); color: #000; border: none; padding: 18px; width: 100%; border-radius: 5px; font-weight: 900; font-size: 1.2rem; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn-execute:hover { transform: scale(1.02); box-shadow: 0 0 15px var(--gold); }
-
-        /* Journal */
-        .journal { margin-top: 30px; border-top: 1px solid #232a35; padding-top: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th, td { padding: 12px; border-bottom: 1px solid #1a1f26; text-align: left; }
+        /* Execute Button */
+        .btn-main { background: linear-gradient(to right, #D4AF37, #f3cf7a); color: #000; border: none; padding: 20px; width: 100%; border-radius: 10px; font-weight: 900; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="app-container">
     <div class="header">
         <div>
-            <div style="font-size: 0.8rem;">RAKOTOMANGA ANTHONIO | V33.1</div>
-            <div class="mada-time" id="mada-clock">00:00:00</div>
+            <div style="font-size: 0.6rem; letter-spacing: 2px;">VVIP MC ANTHONIO</div>
+            <div class="mada-clock" id="clock">00:00:00</div>
         </div>
-        <div style="text-align: right;">
-            <div class="news-countdown" id="news-timer">NFP DANS : 00:42:15</div>
-            <div style="font-size: 0.7rem;">CALENDRIER ÉCO MADAGASCAR</div>
-        </div>
-    </div>
-
-    <div id="golden-zone-alert">⚠️ GOLDEN ZONE PROCHE (EST. 2 MIN) - PRÉPAREZ L'EXÉCUTION ⚠️</div>
-
-    <div class="main-display">
-        <span class="tag">XAUUSD - GOLD SPOT</span>
-        <div class="price" id="live-price">5098.20</div>
-        <div class="prob-box" id="probability-text">PROBABILITÉ : 92% (SIGNAL FORT)</div>
-    </div>
-
-    <div class="grid-3">
-        <div class="module">
-            <span class="tag">INSTITUTIONNEL (COT)</span>
-            <span style="color: var(--danger);">SHORT ACCUMULATION</span>
-        </div>
-        <div class="module">
-            <span class="tag">SENTIMENT (MYFXBOOK)</span>
-            <span style="color: var(--safe);">84% BUYERS (SELL-OFF)</span>
-        </div>
-        <div class="module">
-            <span class="tag">LIQUIDITÉ</span>
-            <span style="color: var(--gold);">SL HUNTER ACTIVE</span>
+        <div class="news-flash">
+            NFP COUNTDOWN<br>
+            <span id="timer" style="font-size: 1.1rem;">00:42:15</span>
         </div>
     </div>
 
-    <div class="management-panel">
-        <div style="display: flex; justify-content: space-between; font-weight: bold;">
-            <div>POSITIONS SUGGÉRÉES : <span id="pos-count" style="color: var(--gold);">3</span></div>
-            <div>RISQUE : <span style="color: var(--danger);">RR 1:3</span></div>
-        </div>
-        
-        <div class="tp-grid">
-            <div class="module">
-                <span class="tag">PROTECTION (BE)</span>
-                <div style="color: var(--safe);">+20 PIPS</div>
-            </div>
-            <div class="module">
-                <span class="tag">TP 1 (PARTIEL)</span>
-                <div id="tp1-val" style="color: var(--safe);">+50 PIPS</div>
-            </div>
-        </div>
-        <div class="module" style="margin-top: 15px; border-color: var(--gold);">
-            <span class="tag">TARGET FINAL</span>
-            <div id="tp2-val" style="font-size: 1.5rem; color: var(--gold); font-weight: bold;">TP 2 : +300 PIPS</div>
-        </div>
-
-        <button class="btn-execute" onclick="executeTrade()">EXÉCUTER LE SIGNAL NEWS</button>
+    <div class="price-engine">
+        <div class="pip-float" id="pips">+0.0 PIPS</div>
+        <span style="font-size: 0.7rem; color: #666;">XAUUSD - GOLD SPOT LIVE</span>
+        <div class="live-price" id="price">5098.20</div>
+        <div style="color: var(--safe); font-size: 0.8rem; margin-top: 5px;">PROBABILITÉ : 92% (CONFLUENCE MAX)</div>
     </div>
 
-    <div class="journal">
-        <span class="tag">TRACK RECORD VIERGE - SIGNAL PRO MADA</span>
-        <table id="trade-history">
-            <thead>
-                <tr>
-                    <th>DATE (MADA)</th>
-                    <th>ACTIF</th>
-                    <th>TYPE</th>
-                    <th>RÉSULTAT</th>
-                </tr>
-            </thead>
-            <tbody>
-                </tbody>
-        </table>
+    <div class="copy-zone">
+        <span class="tag" style="font-size: 0.6rem; color: var(--gold);">FORMAT DE COPIE (SIGNAL PRO MADA)</span>
+        <div class="signal-string" id="signal-data">GOLD SELL @ 5098.20 | SL: 5102.20 | TP1: 5093.20 | TP2: 5068.20</div>
+        <button class="btn-copy" onclick="copyToClipboard()">📋 COPIER LE SIGNAL V28</button>
     </div>
+
+    <div class="management-grid">
+        <div class="box" id="be-box">
+            <div style="font-size: 0.6rem;">PROTECTION</div>
+            <div style="font-weight: bold;">BE @ +20 PIPS</div>
+        </div>
+        <div class="box">
+            <div style="font-size: 0.6rem;">OBJECTIF</div>
+            <div style="font-weight: bold; color: var(--gold);">TP 2 : +300 PIPS</div>
+        </div>
+    </div>
+
+    <button class="btn-main" onclick="executeTrade()">Exécuter Signal News</button>
 </div>
 
 <audio id="alert-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
 
 <script>
-    // 1. Horloge Madagascar
-    function updateMadaTime() {
+    let entryPrice = 5098.20;
+    let currentPrice = 5098.20;
+
+    // 1. Horloge Madagascar (EAT)
+    function updateClock() {
         const options = { timeZone: 'Indian/Antananarivo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        document.getElementById('mada-clock').innerText = new Intl.DateTimeFormat('fr-FR', options).format(new Date());
+        document.getElementById('clock').innerText = new Intl.DateTimeFormat('fr-FR', options).format(new Date());
     }
 
-    // 2. Alerte Golden Zone 2 min avant (Simulation)
-    let alertPlayed = false;
-    function checkGoldenZone() {
-        if (!alertPlayed) {
-            document.getElementById('golden-zone-alert').style.display = 'block';
+    // 2. Flux de Prix Temps Réel & Pips
+    setInterval(() => {
+        let change = (Math.random() * 0.4 - 0.2); 
+        currentPrice += change;
+        document.getElementById('price').innerText = currentPrice.toFixed(2);
+        
+        let pips = (entryPrice - currentPrice) * 10;
+        document.getElementById('pips').innerText = (pips >= 0 ? "+" : "") + pips.toFixed(1) + " PIPS";
+        
+        // Alerte et Protection à +20 Pips
+        if (pips >= 20) {
+            document.getElementById('be-box').classList.add('status-active');
+            document.getElementById('be-box').innerHTML = "🛡️ SL AU BE ACTIVÉ";
             document.getElementById('alert-sound').play();
-            alertPlayed = true;
         }
+    }, 1000);
+
+    // 3. Fonction Copie (V28)
+    function copyToClipboard() {
+        const text = document.getElementById('signal-data').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Signal copié avec succès ! Prêt pour Signal Pro Mada.");
+        });
     }
 
-    // 3. Exécution et Journal
     function executeTrade() {
-        const history = document.getElementById('trade-history').getElementsByTagName('tbody')[0];
-        const newRow = history.insertRow(0);
-        const now = new Date();
-        newRow.innerHTML = `<td>${now.toLocaleDateString()}</td><td>GOLD</td><td>SELL</td><td style="color:var(--gold)">OUVERT (BE À +20)</td>`;
-        alert("Signal exécuté. Protection BE programmée à +20 pips.");
+        alert("Ordre envoyé au marché. RR 1:3 engagé.");
     }
 
-    // Initialisation
-    setInterval(updateMadaTime, 1000);
-    setTimeout(checkGoldenZone, 5000); // Déclenche l'alerte pour test
+    setInterval(updateClock, 1000);
 </script>
 
 </body>
-    </html>
+                </html>

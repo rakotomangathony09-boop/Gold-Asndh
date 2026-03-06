@@ -3,89 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VVIP QUANT V25 | SL 50 PIPS</title>
+    <title>VVIP GOLD V27 | PRECISION ALERT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #0F172A; touch-action: manipulation; }
-        .card { background: white; border-radius: 20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); border: 1px solid #F1F5F9; }
+        body { font-family: 'Inter', sans-serif; background-color: #0F172A; color: white; }
+        .card { background: #1E293B; border-radius: 16px; border: 1px solid #334155; }
         .price-up { color: #10B981; }
-        .price-down { color: #EF4444; }
-        .tp-box { background: #F0FDF4; border: 1px solid #DCFCE7; border-radius: 10px; text-align: center; padding: 6px; }
+        .price-down { color: #F43F5E; }
+        .font-heavy { font-weight: 900; }
     </style>
 </head>
-<body class="p-4 text-[11px]">
+<body class="p-4">
 
-    <div class="flex justify-between items-center mb-4 px-1">
-        <h2 class="font-black text-[9px] uppercase tracking-[0.2em] text-slate-400">VVIP MC ANTHONIO v25</h2>
-        <button onclick="resetSession()" class="text-[8px] font-bold text-red-500 bg-red-50 px-3 py-1 rounded-full border border-red-100 uppercase">Effacer Session</button>
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="font-heavy text-[10px] uppercase tracking-[0.3em] text-slate-500">SYSTEM VVIP v27.0</h2>
+        <button onclick="resetSession()" class="bg-red-500/20 text-red-500 text-[9px] font-bold px-3 py-1 rounded border border-red-500/50 uppercase">Reset</button>
     </div>
 
-    <div class="card p-6 text-center mb-4 border-b-4 border-amber-500" onclick="initAudio()">
-        <div id="audioStatus" class="text-[8px] font-bold text-amber-500 mb-2 animate-pulse uppercase tracking-widest">🔔 Activez le son ici</div>
-        <h1 class="text-6xl font-black tracking-tighter" id="priceDisplay">----.--</h1>
-        <div id="earlyAlert" class="hidden bg-indigo-600 text-white text-[10px] font-bold py-2 rounded-xl mt-4 animate-bounce uppercase">📢 Attention : Zone proche (2 min)</div>
+    <div class="card p-8 text-center mb-4 shadow-2xl border-b-4 border-amber-500" onclick="initAudio()">
+        <div id="audioStatus" class="bg-amber-500 text-slate-900 text-[10px] font-heavy py-1 px-4 rounded-full inline-block mb-4 animate-pulse uppercase">
+            👉 CLIQUE ICI POUR LE SON (OBLIGATOIRE)
+        </div>
+        <h1 class="text-7xl font-heavy tracking-tighter" id="priceDisplay">----.--</h1>
+        
+        <div id="earlyAlert" class="hidden bg-blue-600 text-white text-lg font-heavy py-4 rounded-xl mt-6 animate-bounce border-2 border-white shadow-lg">
+            🔔 ALERTE : PRÉPARE LE SIGNAL (T-2 MIN)
+        </div>
     </div>
 
-    <div id="signalContainer" class="card p-5 mb-4 border-l-[10px] border-slate-200 transition-all duration-500">
-        <div class="opacity-10" id="levelData">
-            <div class="flex justify-between items-end border-b border-slate-100 pb-3 mb-3">
-                <span class="text-[10px] font-bold text-slate-400 uppercase">Sell Market @</span>
-                <span id="fixEntry" class="font-black text-3xl text-amber-600">----.--</span>
+    <div id="signalContainer" class="card p-5 mb-4 border-l-[12px] border-slate-700">
+        <div class="opacity-10 transition-opacity duration-1000" id="levelData">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4">
+                <span class="text-sm font-bold text-slate-400 uppercase">ENTRY SELL :</span>
+                <span id="fixEntry" class="text-4xl font-heavy text-amber-500 tracking-tighter">----.--</span>
             </div>
-            <div class="flex justify-between items-center mb-4">
+            
+            <div class="flex justify-between items-center mb-6">
                 <div class="flex flex-col">
-                    <span class="text-[8px] font-bold text-red-400 uppercase">Stop Loss (50 Pips)</span>
-                    <span id="fixSL" class="font-black text-red-600 text-xl tracking-tight">--</span>
+                    <span class="text-xs font-bold text-red-500 uppercase">STOP LOSS (50 PIPS)</span>
+                    <span id="fixSL" class="text-2xl font-heavy text-white italic">----.--</span>
                 </div>
             </div>
-            <div class="grid grid-cols-5 gap-2" id="tpGrid">
-                <div class="tp-box"><div class="text-[7px] text-green-600 font-bold uppercase">TP1</div><div id="tp1" class="font-black text-[10px]">--</div></div>
-                <div class="tp-box"><div class="text-[7px] text-green-600 font-bold uppercase">TP2</div><div id="tp2" class="font-black text-[10px]">--</div></div>
-                <div class="tp-box"><div class="text-[7px] text-green-600 font-bold uppercase">TP3</div><div id="tp3" class="font-black text-[10px]">--</div></div>
-                <div class="tp-box"><div class="text-[7px] text-green-600 font-bold uppercase">TP4</div><div id="tp4" class="font-black text-[10px]">--</div></div>
-                <div class="tp-box"><div class="text-[7px] text-green-600 font-bold uppercase">TP5</div><div id="tp5" class="font-black text-[10px]">--</div></div>
+
+            <div class="grid grid-cols-1 gap-2">
+                <div class="flex justify-between bg-slate-800 p-3 rounded-lg border border-slate-700">
+                    <span class="font-bold text-emerald-400">TP1: <span id="tp1" class="text-white">--</span></span>
+                    <span class="font-bold text-emerald-400">TP2: <span id="tp2" class="text-white">--</span></span>
+                </div>
+                <div class="flex justify-between bg-slate-800 p-3 rounded-lg border border-slate-700">
+                    <span class="font-bold text-emerald-400">TP3: <span id="tp3" class="text-white">--</span></span>
+                    <span class="font-bold text-emerald-400">TP4: <span id="tp4" class="text-white">--</span></span>
+                </div>
+                <div class="bg-emerald-600 p-3 rounded-lg text-center shadow-lg">
+                    <span class="font-heavy text-white text-xl uppercase tracking-tighter">TP5 MAX: <span id="tp5">--</span></span>
+                </div>
             </div>
         </div>
     </div>
 
-    <button id="copyBtn" onclick="copyVvip()" class="bg-slate-200 text-slate-400 w-full font-black py-5 rounded-2xl text-[13px] uppercase mb-4 shadow-inner cursor-not-allowed">❌ En attente de zone</button>
+    <button id="copyBtn" onclick="copyVvip()" class="bg-slate-700 text-slate-500 w-full font-heavy py-6 rounded-2xl text-xl uppercase mb-6 shadow-lg cursor-not-allowed">
+        EN ATTENTE...
+    </button>
 
-    <div class="card p-5">
-        <div class="flex justify-between items-center mb-4">
-            <span class="font-black text-[10px] uppercase tracking-tight text-slate-500">Journal de Session</span>
-            <div class="flex gap-2">
-                <button onclick="addTrade(30, 'GAIN')" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-[9px] font-bold shadow-md">GAIN</button>
-                <button onclick="addTrade(0, 'BE')" class="bg-slate-500 text-white px-3 py-1.5 rounded-lg text-[9px] font-bold shadow-md">B.E</button>
-                <button onclick="addTrade(-10, 'PERTE')" class="bg-red-600 text-white px-3 py-1.5 rounded-lg text-[9px] font-bold shadow-md">PERTE</button>
-            </div>
+    <div class="card p-5 bg-slate-900">
+        <div class="grid grid-cols-3 gap-3 mb-5">
+            <button onclick="addTrade(30, 'GAIN')" class="bg-emerald-600 text-white py-4 rounded-xl font-heavy text-xs shadow-lg active:scale-95 transition-transform">GAIN ✅</button>
+            <button onclick="addTrade(0, 'BE')" class="bg-slate-600 text-white py-4 rounded-xl font-heavy text-xs shadow-lg active:scale-95 transition-transform">B.E 🛡️</button>
+            <button onclick="addTrade(-10, 'PERTE')" class="bg-rose-600 text-white py-4 rounded-xl font-heavy text-xs shadow-lg active:scale-95 transition-transform">PERTE ❌</button>
         </div>
-        <div id="historyList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+
+        <div id="historyList" class="space-y-3 max-h-64 overflow-y-auto pr-1">
             </div>
     </div>
 
     <script>
         let isLocked = false, isEarly = false, lastPrice = 0;
         let fixedData = { entry: 0, sl: 0, tps: [] };
-        let trades = JSON.parse(localStorage.getItem('mc_v25_journal')) || [];
-        const GOLDEN_ZONE = 5130.00;
+        let trades = JSON.parse(localStorage.getItem('mc_v27_final')) || [];
+        const GOLDEN_ZONE = 5130.00; // TA ZONE CIBLE
 
         let audioCtx;
         function initAudio() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                document.getElementById('audioStatus').innerText = "✅ SON ACTIF";
-                document.getElementById('audioStatus').className = "text-[8px] font-bold text-emerald-500 mb-2 uppercase";
+                document.getElementById('audioStatus').innerText = "🔊 SON ACTIF ET PRÊT";
+                document.getElementById('audioStatus').className = "bg-emerald-500 text-slate-900 text-[10px] font-heavy py-1 px-4 rounded-full inline-block mb-4";
             }
         }
 
-        function playSound(f, d) {
+        function playAlert(freq, duration, type) {
             if (!audioCtx) return;
-            const o = audioCtx.createOscillator();
-            const g = audioCtx.createGain();
-            o.frequency.value = f; g.gain.value = 0.15;
-            o.connect(g); g.connect(audioCtx.destination);
-            o.start(); o.stop(audioCtx.currentTime + d);
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + duration);
         }
 
         function connectWS() {
@@ -94,71 +109,77 @@
                 const p = parseFloat(JSON.parse(e.data).c);
                 const d = document.getElementById('priceDisplay');
                 d.innerText = p.toFixed(2);
-                d.className = p > lastPrice ? "text-6xl font-black price-up" : "text-6xl font-black price-down";
+                d.className = p > lastPrice ? "text-7xl font-heavy price-up" : "text-7xl font-heavy price-down";
                 
-                // Alerte 2.00 pts avant
+                // 1. DÉTECTION 2 MINUTES AVANT (Distance de 2.00 points)
                 if(!isLocked && !isEarly && p >= (GOLDEN_ZONE - 2.00) && p < GOLDEN_ZONE) {
-                    isEarly = true; playSound(880, 1.0);
+                    isEarly = true;
+                    playAlert(880, 2.0, 'sine'); // Son radar long
                     document.getElementById('earlyAlert').classList.remove('hidden');
                 }
-                // Lock Zone
+
+                // 2. IMPACT GOLDEN ZONE (VERROUILLAGE)
                 if(!isLocked && p >= GOLDEN_ZONE) {
                     isLocked = true;
                     fixedData.entry = p;
-                    fixedData.sl = p + 5.00; // FIXATION SL 50 PIPS
+                    fixedData.sl = p + 5.00; // SL FIXÉ À 50 PIPS
                     fixedData.tps = [p-5, p-10, p-15, p-20, p-30];
-                    playSound(440, 0.6); updateUI(p);
+                    playAlert(440, 0.8, 'square'); // Son de confirmation
+                    updateUI(p);
                 }
                 lastPrice = p;
             };
         }
 
         function updateUI(p) {
-            document.getElementById('signalContainer').className = "card p-5 mb-4 border-l-[10px] border-red-600 bg-red-50/50";
+            document.getElementById('signalContainer').className = "card p-5 mb-4 border-l-[12px] border-emerald-500 bg-emerald-500/5";
             document.getElementById('levelData').style.opacity = "1";
             document.getElementById('fixEntry').innerText = p.toFixed(2);
             document.getElementById('fixSL').innerText = (p+5.00).toFixed(2);
             for(let i=0; i<5; i++) document.getElementById(`tp${i+1}`).innerText = fixedData.tps[i].toFixed(2);
+            document.getElementById('earlyAlert').classList.add('hidden');
+            
             const b = document.getElementById('copyBtn');
-            b.className = "bg-amber-600 text-white w-full font-black py-5 rounded-2xl text-[13px] shadow-lg animate-bounce";
-            b.innerHTML = "⚡ SELL MARKET NOW (SL 50 PIPS)";
+            b.className = "bg-amber-500 text-slate-900 w-full font-heavy py-6 rounded-2xl text-2xl shadow-xl animate-pulse";
+            b.innerHTML = "⚡ COPIER SIGNAL VVIP";
             b.disabled = false;
         }
 
         function addTrade(v, t) {
             trades.unshift({ id: Date.now(), val: v, type: t, time: new Date().toLocaleTimeString('fr-FR') });
-            refreshJournal();
+            save();
         }
 
         function deleteTrade(id) {
             trades = trades.filter(x => x.id !== id);
-            refreshJournal();
+            save();
         }
 
         function resetSession() {
-            if(confirm("Vider l'historique de la session ?")) { trades = []; refreshJournal(); }
+            if(confirm("Effacer tout le journal ?")) { trades = []; save(); }
         }
 
-        function refreshJournal() {
-            localStorage.setItem('mc_v25_journal', JSON.stringify(trades));
-            const l = document.getElementById('historyList');
-            l.innerHTML = '';
+        function save() {
+            localStorage.setItem('mc_v27_final', JSON.stringify(trades));
+            const list = document.getElementById('historyList');
+            list.innerHTML = '';
             trades.forEach(x => {
-                l.innerHTML += `<div class="flex justify-between bg-white p-3 rounded-xl border border-slate-100 items-center shadow-sm">
-                    <span class="text-[8px] text-slate-400 font-bold">${x.time}</span>
-                    <span class="font-black ${x.val > 0 ? 'text-emerald-600' : x.val < 0 ? 'text-red-600' : 'text-slate-500'} uppercase">${x.type} (${x.val >= 0 ? '+' : ''}${x.val}$)</span>
-                    <button onclick="deleteTrade(${x.id})" class="text-slate-300 px-2 font-bold hover:text-red-500 transition-colors">✕</button>
+                list.innerHTML += `
+                <div class="flex justify-between items-center bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-lg">
+                    <span class="text-[10px] font-bold text-slate-500">${x.time}</span>
+                    <span class="text-sm font-heavy ${x.val > 0 ? 'text-emerald-400' : x.val < 0 ? 'text-rose-500' : 'text-slate-400'} uppercase">${x.type} (${x.val}$)</span>
+                    <button onclick="deleteTrade(${x.id})" class="bg-slate-700 text-slate-400 font-heavy px-3 py-1 rounded-lg ml-2 active:bg-red-500">✕</button>
                 </div>`;
             });
         }
 
         function copyVvip() {
             if(!isLocked) return;
-            const msg = `⚡ VVIP SIGNAL BY MC ANTHONIO ⚡\n\n🥇 GOLD (XAUUSD)\n📉 SELL NOW @ ${fixedData.entry.toFixed(2)}\n🛑 SL: ${fixedData.sl.toFixed(2)} (50 pips)\n\n💰 TP1: ${fixedData.tps[0].toFixed(2)}\n💰 TP2: ${fixedData.tps[1].toFixed(2)}\n💰 TP3: ${fixedData.tps[2].toFixed(2)}\n💰 TP4: ${fixedData.tps[3].toFixed(2)}\n💰 TP5: ${fixedData.tps[4].toFixed(2)}\n\n📊 PROBA: 88%\n💼 GESTION: 3 POSITIONS`;
-            navigator.clipboard.writeText(msg).then(() => alert("Signal copié !"));
+            const msg = `⚡ VVIP SIGNAL BY MC ANTHONIO ⚡\n\n🥇 GOLD (XAUUSD)\n📉 SELL NOW @ ${fixedData.entry.toFixed(2)}\n🛑 SL: ${fixedData.sl.toFixed(2)} (50 pips)\n\n💰 TP1: ${fixedData.tps[0].toFixed(2)}\n💰 TP2: ${fixedData.tps[1].toFixed(2)}\n💰 TP3: ${fixedData.tps[2].toFixed(2)}\n💰 TP4: ${fixedData.tps[3].toFixed(2)}\n💰 TP5: ${fixedData.tps[4].toFixed(2)}\n\n📊 PROBA: 88%\n🔥 EXÉCUTION MARCHÉ !`;
+            navigator.clipboard.writeText(msg).then(() => alert("✅ SIGNAL COPIÉ !"));
         }
 
-        window.onload = () => { connectWS(); refreshJournal(); };
+        window.onload = () => { connectWS(); save(); };
     </script>
 </body>
-            </html>
+    </html>

@@ -3,142 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VVIP QUANT | AUTO-LOCK</title>
+    <title>VVIP QUANT | MC ANTHONIO</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="data:application/manifest+json,{'name':'VVIP_QUANT','short_name':'VVIP','start_url':'.','display':'standalone','background_color':'#000000','theme_color':'#FFA028'}">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-        body { font-family: 'Roboto Mono', monospace; background-color: #000; color: #fff; touch-action: manipulation; }
+        body { font-family: 'Roboto Mono', monospace; background-color: #000; color: #fff; touch-action: manipulation; overflow: hidden; }
         .amber { color: #FFA028; }
-        .bg-panel { background-color: #080808; border: 1px solid #222; border-radius: 6px; }
-        .price-up { color: #22c55e; }
-        .price-down { color: #ef4444; }
-        .btn-vvip { background: linear-gradient(135deg, #FFA028 0%, #CC801D 100%); }
+        .bg-panel { background-color: #080808; border: 1px solid #222; border-radius: 8px; }
+        .btn-vvip { background: linear-gradient(135deg, #FFA028 0%, #CC801D 100%); transition: 0.3s; }
         .status-pulse { animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
-<body class="p-2 text-[11px] bg-black">
+<body class="p-3 text-[11px] bg-black">
 
-    <div class="bg-[#FFA028] text-black font-bold px-3 py-2 flex justify-between items-center mb-2 rounded shadow-lg">
-        <span class="text-[10px] uppercase italic">VVIP AUTO-ENGINE v13</span>
-        <div id="algoStatus" class="flex items-center gap-1 text-[8px] bg-black text-white px-2 py-0.5 rounded">
-            <span class="w-1.5 h-1.5 bg-blue-500 rounded-full status-pulse"></span> SCANNING ZONE...
+    <div class="bg-[#FFA028] text-black font-bold px-4 py-3 flex justify-between items-center mb-3 rounded-lg shadow-2xl">
+        <span class="text-[10px] tracking-widest uppercase">VVIP MC ANTHONIO v15</span>
+        <div id="audioStatus" class="text-[8px] border border-black px-2 rounded font-mono">AUDIO READY</div>
+    </div>
+
+    <div class="bg-panel p-4 text-center mb-3 border-b-4 border-zinc-800">
+        <div class="flex justify-center items-center gap-2 mb-1">
+            <span class="w-2 h-2 bg-blue-500 rounded-full status-pulse"></span>
+            <span class="text-[8px] text-zinc-500 uppercase font-bold tracking-widest">Scanning Golden Zone...</span>
         </div>
+        <h1 class="text-5xl font-bold tracking-tighter" id="priceDisplay">----.--</h1>
     </div>
 
-    <div class="bg-panel p-3 text-center mb-2 border-b-2 border-zinc-700">
-        <h1 class="text-4xl font-bold tracking-tighter" id="priceDisplay">----.--</h1>
-    </div>
-
-    <div id="signalContainer" class="bg-panel p-3 mb-2 border-l-4 border-zinc-700 transition-all duration-500">
-        <div class="flex justify-between items-center mb-3">
-            <span id="setupLabel" class="text-zinc-500 font-bold uppercase italic text-[9px]">En attente de zone...</span>
-            <div id="lockIcon" class="text-zinc-700 font-bold text-lg">🔓</div>
+    <div id="signalContainer" class="bg-panel p-4 mb-3 border-l-4 border-zinc-800 transition-all duration-700">
+        <div class="flex justify-between items-center mb-4">
+            <span id="setupLabel" class="text-zinc-600 font-bold uppercase italic text-[9px]">Analyzing Institutions...</span>
+            <div id="lockIcon" class="text-zinc-800 text-xl font-bold">UNLOCKED</div>
         </div>
         
-        <div class="space-y-2 opacity-40" id="levelData">
-            <div class="flex justify-between border-b border-zinc-900 pb-1">
-                <span class="text-zinc-600">ENTRY LIMIT</span>
-                <span id="fixEntry" class="font-bold text-lg">----.--</span>
+        <div class="grid grid-cols-1 gap-3 opacity-20" id="levelData">
+            <div class="flex justify-between items-end border-b border-zinc-900 pb-1">
+                <span class="text-zinc-600 text-[10px]">ENTRY LIMIT</span>
+                <span id="fixEntry" class="font-bold text-2xl">----.--</span>
             </div>
-            <div class="flex justify-between border-b border-zinc-900 pb-1">
-                <span class="text-zinc-600">STOP LOSS</span>
-                <span id="fixSL" class="font-bold text-lg">----.--</span>
+            <div class="flex justify-between items-end border-b border-zinc-900 pb-1 text-red-500">
+                <span class="text-zinc-600 text-[10px]">STOP LOSS</span>
+                <span id="fixSL" class="font-bold text-xl">----.--</span>
             </div>
-            <div class="flex justify-between">
-                <span class="text-zinc-600">TAKE PROFIT</span>
-                <span id="fixTP" class="font-bold text-lg">----.--</span>
+            <div class="flex justify-between items-end text-green-500">
+                <span class="text-zinc-600 text-[10px]">TAKE PROFIT</span>
+                <span id="fixTP" class="font-bold text-xl">----.--</span>
             </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-2 mb-2 text-center">
-        <div class="bg-panel p-2">
-            <div class="text-[7px] text-zinc-500 uppercase font-bold">Probabilité Gain</div>
-            <div id="probText" class="font-bold text-zinc-600 italic uppercase">Waiting...</div>
-        </div>
-        <div class="bg-panel p-2">
-            <div class="text-[7px] text-zinc-500 uppercase font-bold">Positions</div>
-            <div id="posText" class="font-bold text-zinc-600 uppercase italic">--</div>
-        </div>
-    </div>
-
-    <button id="copyBtn" onclick="copyVvip()" class="bg-zinc-800 text-zinc-500 w-full font-bold py-3 rounded-lg text-[10px] uppercase mb-2 cursor-not-allowed">
-        ❌ Signal Non Verrouillé
+    <button id="copyBtn" onclick="copyVvip()" class="bg-zinc-900 text-zinc-700 w-full font-bold py-4 rounded-xl text-[11px] uppercase mb-4 shadow-inner cursor-not-allowed border border-zinc-800">
+        Waiting for Trigger...
     </button>
 
-    <div class="bg-panel p-2 text-[8px] text-zinc-500 italic text-center border border-zinc-900">
-        Zone de déclenchement auto détectée : <span class="amber font-bold">5130.00 - 5145.00</span>
+    <div class="bg-panel p-3 h-24 overflow-y-auto font-mono text-[8px] text-zinc-500 border border-zinc-900" id="logs">
+        [SYSTEM] VVIP Engine Initialized...<br>
+        [SYSTEM] Audio Driver Loaded...<br>
+        [SYSTEM] Monitoring XAUUSD Liquidity...
     </div>
 
     <script>
         let isLocked = false;
         let lastPrice = 0;
         let fixedData = { entry: 0, sl: 0, tp: 0 };
+        
+        // Configuration Audio
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        function playAlert(freq, duration) {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            osc.start();
+            osc.stop(ctx.currentTime + duration);
+        }
 
         function connectWS() {
             const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
             ws.onmessage = (event) => {
                 const price = parseFloat(JSON.parse(event.data).c);
                 document.getElementById('priceDisplay').innerText = price.toFixed(2);
-                document.getElementById('priceDisplay').className = price > lastPrice ? "text-4xl font-bold price-up" : "text-4xl font-bold price-down";
+                document.getElementById('priceDisplay').className = price > lastPrice ? "text-5xl font-bold price-up tracking-tighter" : "text-5xl font-bold price-down tracking-tighter";
                 lastPrice = price;
                 
-                // LOGIQUE AUTO-LOCK
-                // On verrouille si le prix entre dans la zone institutionnelle (ex: 5130+)
-                if (!isLocked && price >= 5130.00) {
-                    lockOrderAutomatically(price);
+                // LOGIQUE AUTO-LOCK (Seuil institutionnel détecté)
+                if (!isLocked && price >= 5128.00) {
+                    executeAutoLock(price);
                 }
             };
         }
 
-        function lockOrderAutomatically(price) {
+        function executeAutoLock(price) {
             isLocked = true;
             const risk = 24.00;
             fixedData.entry = price;
             fixedData.sl = price + risk;
             fixedData.tp = price - (risk * 3);
 
-            // Mise à jour visuelle
-            document.getElementById('signalContainer').className = "bg-panel p-3 mb-2 border-l-4 border-red-600 shadow-[0_0_15px_rgba(239,68,68,0.2)]";
-            document.getElementById('levelData').className = "space-y-2 opacity-100";
-            document.getElementById('setupLabel').innerText = "VVIP SELL LIMIT LOCKED";
+            // Interface
+            document.getElementById('signalContainer').className = "bg-panel p-4 mb-3 border-l-4 border-red-600 shadow-[0_0_30px_rgba(239,68,68,0.2)] scale-[1.02]";
+            document.getElementById('levelData').className = "grid grid-cols-1 gap-3 opacity-100";
+            document.getElementById('setupLabel').innerText = "VVIP INSTITUTIONAL SELL LOCKED";
             document.getElementById('setupLabel').className = "text-red-500 font-bold uppercase italic text-[9px]";
-            document.getElementById('lockIcon').innerText = "🔒";
-            document.getElementById('lockIcon').className = "text-red-500 font-bold text-lg animate-bounce";
+            document.getElementById('lockIcon').innerText = "LOCKED";
+            document.getElementById('lockIcon').className = "text-red-600 text-sm animate-pulse";
             
-            document.getElementById('algoStatus').innerText = "TARGET IDENTIFIED";
-            document.getElementById('algoStatus').className = "flex items-center gap-1 text-[8px] bg-red-600 text-white px-2 py-0.5 rounded";
-
             document.getElementById('fixEntry').innerText = fixedData.entry.toFixed(2);
-            document.getElementById('fixEntry').className = "amber font-bold text-lg";
+            document.getElementById('fixEntry').className = "amber font-bold text-2xl";
             document.getElementById('fixSL').innerText = fixedData.sl.toFixed(2);
-            document.getElementById('fixSL').className = "text-red-500 font-bold text-lg";
             document.getElementById('fixTP').innerText = fixedData.tp.toFixed(2);
-            document.getElementById('fixTP').className = "text-green-500 font-bold text-lg";
-
-            document.getElementById('probText').innerText = "HIGH (88%)";
-            document.getElementById('probText').className = "font-bold text-green-500 uppercase";
-            document.getElementById('posText').innerText = "3 POSITIONS";
-            document.getElementById('posText').className = "font-bold text-white uppercase";
 
             const btn = document.getElementById('copyBtn');
-            btn.className = "btn-vvip w-full text-black font-bold py-3 rounded-lg text-[10px] uppercase shadow-lg mb-2";
-            btn.innerHTML = "📋 Copier le Signal Auto-Verrouillé";
+            btn.className = "btn-vvip w-full text-black font-bold py-4 rounded-xl text-[11px] uppercase shadow-2xl mb-4 active:scale-95";
+            btn.innerHTML = "📋 Copy Signal (Auto-Locked)";
             btn.style.cursor = "pointer";
 
-            // Notification visuelle sonore
-            try { window.navigator.vibrate(200); } catch(e) {}
+            // ALERTE SONORE (Sirène)
+            playAlert(880, 0.5);
+            setTimeout(() => playAlert(440, 0.5), 500);
+            
+            const log = document.getElementById('logs');
+            log.innerHTML += `<br><span class='text-red-500'>[ALERT] TARGET REACHED AT ${price.toFixed(2)} - ORDER LOCKED!</span>`;
+            log.scrollTop = log.scrollHeight;
         }
 
         function copyVvip() {
             if (!isLocked) return;
-            const text = `⭐ VVIP AUTO-SIGNAL ⭐\n\n🥇 ASSET: XAUUSD\n📉 ORDER: SELL LIMIT\n📊 PROBABILITÉ: 88%\n💼 GESTION: 3 POSITIONS\n\n📍 ENTRY: ${fixedData.entry.toFixed(2)}\n🛑 SL: ${fixedData.sl.toFixed(2)}\n💰 TP: ${fixedData.tp.toFixed(2)}\n\n🔥 BY MC ANTHONIO QUANT`;
-            navigator.clipboard.writeText(text).then(() => alert("Signal Auto-LOCKED copié !"));
+            const text = `⭐ VVIP AUTO-SIGNAL ⭐\n\n🥇 XAUUSD (GOLD)\n📉 SELL LIMIT (Auto-Engine)\n\n📍 ENTRY: ${fixedData.entry.toFixed(2)}\n🛑 STOP LOSS: ${fixedData.sl.toFixed(2)}\n💰 TAKE PROFIT: ${fixedData.tp.toFixed(2)}\n\n🔥 STRATÉGIE 100% AUTOMATIQUE BY MC ANTHONIO`;
+            navigator.clipboard.writeText(text).then(() => alert("Signal VVIP Copié !"));
         }
 
+        // Activer l'audio au premier clic sur l'écran (sécurité navigateur)
+        window.onclick = () => { if (ctx.state === 'suspended') ctx.resume(); };
         window.onload = connectWS;
     </script>
 </body>
-    </html>
-    
+                                               </html>

@@ -2,122 +2,64 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>VVIP GOLD QUANT V33.1 | MC ANTHONIO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <title>VVIP GOLD QUANT V28 | MC ANTHONIO</title>
     <style>
-        :root { --gold: #D4AF37; --bg: #05070a; --card: #11151c; --danger: #ff4d4d; --safe: #00ff88; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
-        .app-container { max-width: 500px; margin: auto; border: 2px solid var(--gold); border-radius: 20px; padding: 15px; box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); }
-        
-        /* Header & Mada Time */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 10px; }
-        .mada-clock { font-family: 'Orbitron'; color: var(--gold); font-size: 1.4rem; }
-        .news-flash { color: var(--danger); font-size: 0.7rem; font-weight: bold; text-align: right; }
-
-        /* Live Price Engine */
-        .price-engine { text-align: center; background: var(--card); padding: 30px 10px; border-radius: 15px; margin-bottom: 15px; position: relative; }
-        .live-price { font-family: 'Orbitron'; font-size: 4rem; color: var(--danger); transition: 0.2s; }
-        .pip-float { position: absolute; top: 10px; right: 20px; color: var(--safe); font-weight: bold; }
-
-        /* Signal Copy Module (V28 Style) */
-        .copy-zone { background: rgba(212, 175, 55, 0.1); border: 1px dashed var(--gold); padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: center; }
-        .signal-string { font-family: monospace; font-size: 0.9rem; color: #ccc; margin-bottom: 10px; display: block; }
-        .btn-copy { background: var(--gold); color: #000; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 900; cursor: pointer; width: 100%; }
-
-        /* Protection & TP Display */
-        .management-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .box { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #222; }
-        .status-active { border-color: var(--safe); color: var(--safe); animation: pulse 1s infinite; }
-        @keyframes pulse { 50% { opacity: 0.5; } }
-
-        /* Execute Button */
-        .btn-main { background: linear-gradient(to right, #D4AF37, #f3cf7a); color: #000; border: none; padding: 20px; width: 100%; border-radius: 10px; font-weight: 900; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; }
+        :root { --gold: #D4AF37; --bg: #0a0e14; --card: #151b26; --text: #ffffff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Arial', sans-serif; margin: 0; padding: 20px; text-align: center; }
+        .v28-container { max-width: 450px; margin: auto; border: 2px solid var(--gold); border-radius: 15px; padding: 20px; background: var(--card); }
+        .mada-time { color: var(--gold); font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; }
+        .live-price { font-size: 4rem; font-weight: bold; color: #ff4d4d; margin: 20px 0; }
+        .copy-box { background: rgba(255,255,255,0.05); border: 1px dashed var(--gold); padding: 15px; margin: 20px 0; }
+        .btn-copy { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        .footer-info { font-size: 0.7rem; color: #888; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="header">
-        <div>
-            <div style="font-size: 0.6rem; letter-spacing: 2px;">VVIP MC ANTHONIO</div>
-            <div class="mada-clock" id="clock">00:00:00</div>
+<div class="v28-container">
+    <div class="mada-time" id="clock">ANTANANARIVO : 00:00:00</div>
+    
+    <div style="font-size: 0.8rem; opacity: 0.7;">GOLD SPOT (XAUUSD) - LIVE V28</div>
+    <div class="live-price" id="price">5098.20</div>
+
+    <div class="copy-box">
+        <div id="signal-text" style="font-family: monospace; font-size: 0.8rem; margin-bottom: 10px;">
+            GOLD SELL @ 5098.20 | SL: 5102.20 | TP1: 5093.20 | TP2: 5068.20
         </div>
-        <div class="news-flash">
-            NFP COUNTDOWN<br>
-            <span id="timer" style="font-size: 1.1rem;">00:42:15</span>
-        </div>
+        <button class="btn-copy" onclick="copySignal()">📋 COPIER LE SIGNAL V28</button>
     </div>
 
-    <div class="price-engine">
-        <div class="pip-float" id="pips">+0.0 PIPS</div>
-        <span style="font-size: 0.7rem; color: #666;">XAUUSD - GOLD SPOT LIVE</span>
-        <div class="live-price" id="price">5098.20</div>
-        <div style="color: var(--safe); font-size: 0.8rem; margin-top: 5px;">PROBABILITÉ : 92% (CONFLUENCE MAX)</div>
+    <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+        <div>LOT : <span style="color:var(--gold)">0.02</span></div>
+        <div>RISQUE : <span style="color:var(--gold)">RR 1:3</span></div>
     </div>
 
-    <div class="copy-zone">
-        <span class="tag" style="font-size: 0.6rem; color: var(--gold);">FORMAT DE COPIE (SIGNAL PRO MADA)</span>
-        <div class="signal-string" id="signal-data">GOLD SELL @ 5098.20 | SL: 5102.20 | TP1: 5093.20 | TP2: 5068.20</div>
-        <button class="btn-copy" onclick="copyToClipboard()">📋 COPIER LE SIGNAL V28</button>
-    </div>
-
-    <div class="management-grid">
-        <div class="box" id="be-box">
-            <div style="font-size: 0.6rem;">PROTECTION</div>
-            <div style="font-weight: bold;">BE @ +20 PIPS</div>
-        </div>
-        <div class="box">
-            <div style="font-size: 0.6rem;">OBJECTIF</div>
-            <div style="font-weight: bold; color: var(--gold);">TP 2 : +300 PIPS</div>
-        </div>
-    </div>
-
-    <button class="btn-main" onclick="executeTrade()">Exécuter Signal News</button>
+    <div class="footer-info">VVIP MC ANTHONIO - SIGNAL PRO MADA</div>
 </div>
 
-<audio id="alert-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
-
 <script>
-    let entryPrice = 5098.20;
-    let currentPrice = 5098.20;
-
-    // 1. Horloge Madagascar (EAT)
+    // Horloge Mada
     function updateClock() {
         const options = { timeZone: 'Indian/Antananarivo', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        document.getElementById('clock').innerText = new Intl.DateTimeFormat('fr-FR', options).format(new Date());
+        document.getElementById('clock').innerText = "ANTANANARIVO : " + new Intl.DateTimeFormat('fr-FR', options).format(new Date());
     }
 
-    // 2. Flux de Prix Temps Réel & Pips
+    // Flux de prix simulé (Réactivité V28)
+    let currentPrice = 5098.20;
     setInterval(() => {
-        let change = (Math.random() * 0.4 - 0.2); 
-        currentPrice += change;
+        currentPrice += (Math.random() * 0.2 - 0.1);
         document.getElementById('price').innerText = currentPrice.toFixed(2);
-        
-        let pips = (entryPrice - currentPrice) * 10;
-        document.getElementById('pips').innerText = (pips >= 0 ? "+" : "") + pips.toFixed(1) + " PIPS";
-        
-        // Alerte et Protection à +20 Pips
-        if (pips >= 20) {
-            document.getElementById('be-box').classList.add('status-active');
-            document.getElementById('be-box').innerHTML = "🛡️ SL AU BE ACTIVÉ";
-            document.getElementById('alert-sound').play();
-        }
     }, 1000);
 
-    // 3. Fonction Copie (V28)
-    function copyToClipboard() {
-        const text = document.getElementById('signal-data').innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert("Signal copié avec succès ! Prêt pour Signal Pro Mada.");
-        });
-    }
-
-    function executeTrade() {
-        alert("Ordre envoyé au marché. RR 1:3 engagé.");
+    // Fonction Copie
+    function copySignal() {
+        const text = document.getElementById('signal-text').innerText;
+        navigator.clipboard.writeText(text);
+        alert("Signal copié avec succès !");
     }
 
     setInterval(updateClock, 1000);
 </script>
 
 </body>
-                </html>
+                                                                  </html>

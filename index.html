@@ -3,82 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VVIP QUANT ELITE</title>
+    <title>VVIP QUANT V23 | MC ANTHONIO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; color: #111827; touch-action: manipulation; }
-        .card { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #E5E7EB; }
-        .btn-vvip { background: #D97706; color: white; transition: 0.2s; }
-        .btn-vvip:active { transform: scale(0.96); }
+        .card { background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #E5E7EB; }
+        .btn-vvip { background: #D97706; color: white; }
         .price-up { color: #059669; }
         .price-down { color: #DC2626; }
+        .tp-box { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6px; border-radius: 8px; text-align: center; }
     </style>
 </head>
-<body class="p-4 text-[12px]">
+<body class="p-4 text-[11px]">
 
-    <div class="flex justify-between items-center mb-4 px-1">
-        <h2 class="font-extrabold text-[10px] uppercase tracking-widest text-gray-400">VVIP MC ANTHONIO v21</h2>
-        <button onclick="resetSession()" class="text-[8px] font-bold text-red-500 bg-red-50 px-2 py-1 rounded-md uppercase border border-red-100 italic">Reset Session</button>
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="font-black text-[9px] uppercase tracking-widest text-gray-400">VVIP MC ANTHONIO v23</h2>
+        <button onclick="resetSession()" class="text-[8px] font-bold text-red-500 bg-red-50 px-2 py-1 rounded border border-red-100 uppercase">Reset Session</button>
     </div>
 
-    <div class="card p-6 text-center mb-4 border-b-4 border-amber-500">
-        <span class="text-[9px] text-gray-400 uppercase font-bold tracking-widest">XAUUSD Live Price</span>
-        <h1 class="text-6xl font-black tracking-tighter my-1" id="priceDisplay">----.--</h1>
-        <div id="protectionAlert" class="hidden bg-blue-50 text-blue-700 text-[10px] font-bold py-2 rounded-lg animate-pulse mt-2">🛡️ SÉCURISER : DÉPLACER SL AU P.E (BE)</div>
+    <div class="card p-5 text-center mb-4" onclick="initAudio()">
+        <div id="audioStatus" class="bg-amber-100 text-amber-700 text-[8px] font-bold py-1 px-3 rounded-full inline-block mb-3 animate-pulse">
+            👆 TOUCHEZ ICI POUR ACTIVER LE SON
+        </div>
+        <h1 class="text-6xl font-black tracking-tighter" id="priceDisplay">----.--</h1>
+        <div id="earlyAlert" class="hidden bg-blue-600 text-white text-[10px] font-bold py-2 rounded-lg mt-3 uppercase animate-bounce">
+            📢 ALERTE : ENTRÉE DANS 2 MINUTES !
+        </div>
     </div>
 
     <div class="grid grid-cols-2 gap-3 mb-4">
-        <div class="card p-3 text-center border-t-2 border-blue-500">
+        <div class="card p-3 text-center border-t-4 border-blue-500">
             <div class="text-[8px] text-gray-400 uppercase font-bold">Probabilité</div>
-            <div class="font-extrabold text-blue-600 text-sm">88% HIGH</div>
+            <div class="font-black text-blue-600 text-sm">88% HIGH</div>
         </div>
-        <div class="card p-3 text-center border-t-2 border-amber-500">
+        <div class="card p-3 text-center border-t-4 border-amber-500">
             <div class="text-[8px] text-gray-400 uppercase font-bold">Positions</div>
-            <div class="font-extrabold text-gray-800 text-sm">3 POSITIONS</div>
+            <div class="font-black text-gray-800 text-sm">3 POSITIONS</div>
         </div>
     </div>
 
-    <div id="signalContainer" class="card p-4 mb-4 transition-all duration-500">
-        <div class="flex justify-between items-center mb-3">
-            <span id="setupLabel" class="font-bold uppercase text-[9px] text-gray-400 italic">Scanning Supply Zone...</span>
-            <span id="lockStatus" class="bg-gray-100 text-gray-500 text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">Ready</span>
-        </div>
-        <div class="space-y-3 opacity-20" id="levelData">
-            <div class="flex justify-between border-b border-gray-50 pb-2">
-                <span class="text-gray-400 font-bold uppercase text-[9px]">Sell Market @</span>
-                <span id="fixEntry" class="font-black text-2xl text-amber-600">----.--</span>
+    <div id="signalContainer" class="card p-4 mb-4 border-l-8 border-gray-200">
+        <div class="opacity-20" id="levelData">
+            <div class="flex justify-between items-end border-b pb-2 mb-3">
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Market Sell @</span>
+                <span id="fixEntry" class="font-black text-3xl text-amber-600">----.--</span>
             </div>
-            <div class="flex justify-between items-center px-1">
-                <div class="flex flex-col"><span class="text-[8px] text-gray-400 uppercase">Stop Loss</span><span id="fixSL" class="font-bold text-red-500 text-lg">--</span></div>
-                <div class="flex flex-col text-right"><span class="text-[8px] text-gray-400 uppercase">Take Profit</span><span id="fixTP" class="font-bold text-green-600 text-lg">--</span></div>
+            <div class="text-[9px] font-bold text-red-500 uppercase mb-3">Stop Loss: <span id="fixSL" class="text-lg tracking-tight">--</span></div>
+            
+            <div class="grid grid-cols-5 gap-1">
+                <div class="tp-box"><div class="text-[6px] text-green-700">TP1</div><div id="tp1" class="font-bold text-[9px]">--</div></div>
+                <div class="tp-box"><div class="text-[6px] text-green-700">TP2</div><div id="tp2" class="font-bold text-[9px]">--</div></div>
+                <div class="tp-box"><div class="text-[6px] text-green-700">TP3</div><div id="tp3" class="font-bold text-[9px]">--</div></div>
+                <div class="tp-box"><div class="text-[6px] text-green-700">TP4</div><div id="tp4" class="font-bold text-[9px]">--</div></div>
+                <div class="tp-box"><div class="text-[6px] text-green-700">TP5</div><div id="tp5" class="font-bold text-[9px]">--</div></div>
             </div>
         </div>
     </div>
 
-    <button id="copyBtn" onclick="copyVvip()" class="bg-gray-100 text-gray-400 w-full font-black py-5 rounded-2xl text-[12px] uppercase mb-4 shadow-sm cursor-not-allowed">
-        ❌ Aucun Signal Détecté
+    <button id="copyBtn" onclick="copyVvip()" class="bg-gray-100 text-gray-400 w-full font-black py-5 rounded-2xl text-[12px] uppercase shadow-inner cursor-not-allowed">
+        ❌ Aucun Signal
     </button>
-
-    <div class="card p-4">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-[10px] font-black uppercase tracking-tight">Journal de Session</h3>
-            <div class="flex gap-1">
-                <button onclick="recordTrade(30, 'GAIN')" class="bg-green-600 text-white px-3 py-1.5 rounded-lg text-[9px] font-bold shadow-sm">GAIN</button>
-                <button onclick="recordTrade(0, 'BE')" class="bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg text-[9px] font-bold shadow-sm">B.E</button>
-                <button onclick="recordTrade(-10, 'PERTE')" class="bg-red-600 text-white px-3 py-1.5 rounded-lg text-[9px] font-bold shadow-sm">PERTE</button>
-            </div>
-        </div>
-        <div id="historyList" class="space-y-2 max-h-40 overflow-y-auto">
-            </div>
-    </div>
 
     <script>
         let isLocked = false;
+        let isEarlyAlerted = false;
         let lastPrice = 0;
-        let fixedData = { entry: 0, sl: 0, tp: 0 };
-        let trades = JSON.parse(localStorage.getItem('mc_v21_journal')) || [];
-        const GOLDEN_ZONE = 5130.00;
+        let fixedData = { entry: 0, sl: 0, tps: [] };
+        const GOLDEN_ZONE = 5130.00; // Ton prix cible
+
+        let audioCtx;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                document.getElementById('audioStatus').innerText = "✅ SON OPÉRATIONNEL";
+                document.getElementById('audioStatus').className = "bg-green-100 text-green-700 text-[8px] font-bold py-1 px-3 rounded-full inline-block mb-3";
+            }
+        }
+
+        function playAlert(freq, type, duration) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + duration);
+        }
 
         function connectWS() {
             const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
@@ -86,13 +98,16 @@
                 const price = parseFloat(JSON.parse(event.data).c);
                 const display = document.getElementById('priceDisplay');
                 display.innerText = price.toFixed(2);
-                display.className = price > lastPrice ? "text-6xl font-black tracking-tighter price-up" : "text-6xl font-black tracking-tighter price-down";
+                display.className = price > lastPrice ? "text-6xl font-black price-up" : "text-6xl font-black price-down";
                 
-                // Protection des gains (Si profit > 10 pts)
-                if (isLocked && (fixedData.entry - price) >= 10.00) {
-                    document.getElementById('protectionAlert').classList.remove('hidden');
+                // 1. ALERTE 2 MINUTES AVANT (Se déclenche à 2.00 points de la zone)
+                if (!isLocked && !isEarlyAlerted && price >= (GOLDEN_ZONE - 2.00) && price < GOLDEN_ZONE) {
+                    isEarlyAlerted = true;
+                    playAlert(880, 'sine', 1.0); // Bip long de radar
+                    document.getElementById('earlyAlert').classList.remove('hidden');
                 }
 
+                // 2. VERROUILLAGE D'ENTRÉE
                 if (!isLocked && price >= GOLDEN_ZONE) {
                     triggerLock(price);
                 }
@@ -104,63 +119,28 @@
             isLocked = true;
             fixedData.entry = price;
             fixedData.sl = price + 24;
-            fixedData.tp = price - 72;
+            fixedData.tps = [price-5, price-10, price-15, price-20, price-30];
 
-            document.getElementById('signalContainer').className = "card p-4 mb-4 border-l-8 border-red-600 bg-red-50/30";
+            playAlert(440, 'square', 0.5); // Bip de confirmation
+            document.getElementById('signalContainer').className = "card p-4 mb-4 border-l-8 border-red-600 bg-red-50";
             document.getElementById('levelData').classList.remove('opacity-20');
-            document.getElementById('setupLabel').innerText = "VVIP INSTITUTIONAL SELL";
-            document.getElementById('setupLabel').className = "font-black uppercase text-[10px] text-red-600 animate-pulse";
             document.getElementById('fixEntry').innerText = price.toFixed(2);
             document.getElementById('fixSL').innerText = fixedData.sl.toFixed(2);
-            document.getElementById('fixTP').innerText = fixedData.tp.toFixed(2);
-            document.getElementById('lockStatus').innerText = "🔴 LIVE NOW";
-            document.getElementById('lockStatus').className = "bg-red-600 text-white text-[8px] px-2 py-0.5 rounded-full font-bold";
+            for(let i=0; i<5; i++) document.getElementById(`tp${i+1}`).innerText = fixedData.tps[i].toFixed(2);
+            document.getElementById('earlyAlert').classList.add('hidden');
 
             const btn = document.getElementById('copyBtn');
-            btn.className = "bg-amber-600 text-white w-full font-black py-5 rounded-2xl text-[12px] uppercase shadow-lg animate-bounce mt-2";
+            btn.className = "bg-amber-600 text-white w-full font-black py-5 rounded-2xl text-[12px] shadow-lg animate-bounce";
             btn.innerHTML = "⚡ SELL MARKET NOW";
-            btn.disabled = false;
-        }
-
-        function recordTrade(val, type) {
-            const newTrade = { id: Date.now(), amount: val, type: type, date: new Date().toLocaleTimeString('fr-FR') };
-            trades.unshift(newTrade);
-            saveAndRefresh();
-        }
-
-        function deleteTrade(id) {
-            trades = trades.filter(t => t.id !== id);
-            saveAndRefresh();
-        }
-
-        function resetSession() {
-            if (confirm("Voulez-vous vider tout le journal de session ?")) {
-                trades = [];
-                saveAndRefresh();
-            }
-        }
-
-        function saveAndRefresh() {
-            localStorage.setItem('mc_v21_journal', JSON.stringify(trades));
-            const list = document.getElementById('historyList');
-            list.innerHTML = '';
-            trades.forEach(t => {
-                list.innerHTML += `
-                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl border border-gray-100">
-                        <span class="text-[9px] font-bold text-gray-400">${t.date}</span>
-                        <span class="font-black ${t.amount > 0 ? 'text-green-600' : t.amount < 0 ? 'text-red-600' : 'text-gray-500'} uppercase">${t.type} (${t.amount >= 0 ? '+' : ''}${t.amount}$)</span>
-                        <button onclick="deleteTrade(${t.id})" class="text-gray-300 font-bold px-2 hover:text-red-500">✕</button>
-                    </div>`;
-            });
         }
 
         function copyVvip() {
             if (!isLocked) return;
-            const text = `⚡ VVIP MARKET ORDER BY MC ANTHONIO ⚡\n\n🥇 GOLD (XAUUSD)\n📉 SELL NOW @ ${fixedData.entry.toFixed(2)}\n\n🛑 SL: ${fixedData.sl.toFixed(2)}\n💰 TP: ${fixedData.tp.toFixed(2)}\n\n📊 PROBA: 88%\n💼 GESTION: 3 POSITIONS`;
-            navigator.clipboard.writeText(text).then(() => alert("Signal copié avec succès !"));
+            const text = `⚡ VVIP MARKET ORDER BY MC ANTHONIO ⚡\n\n🥇 GOLD (XAUUSD)\n📉 SELL NOW @ ${fixedData.entry.toFixed(2)}\n🛑 SL: ${fixedData.sl.toFixed(2)}\n\n💰 TP1: ${fixedData.tps[0].toFixed(2)} (50 pips)\n💰 TP2: ${fixedData.tps[1].toFixed(2)} (100 pips)\n💰 TP3: ${fixedData.tps[2].toFixed(2)} (150 pips)\n💰 TP4: ${fixedData.tps[3].toFixed(2)} (200 pips)\n💰 TP5: ${fixedData.tps[4].toFixed(2)} (300 pips)\n\n📊 PROBA: 88%\n💼 GESTION: 3 POSITIONS`;
+            navigator.clipboard.writeText(text).then(() => alert("Signal copié !"));
         }
 
-        window.onload = () => { connectWS(); saveAndRefresh(); };
+        window.onload = connectWS;
     </script>
 </body>
-</html>
+    </html>

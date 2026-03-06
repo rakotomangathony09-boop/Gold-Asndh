@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>XAUUSD | QUANT APP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+        body { font-family: 'Roboto Mono', monospace; background-color: #000; color: #fff; touch-action: manipulation; }
+        .amber { color: #FFA028; }
+        .bg-panel { background-color: #080808; border: 1px solid #222; border-radius: 4px; }
+        .price-up { color: #22c55e; }
+        .price-down { color: #ef4444; }
+        /* Masquer la scrollbar pour le look App */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="p-2 text-[11px] bg-black">
+
+    <div class="bg-[#FFA028] text-black font-bold px-3 py-2 flex justify-between items-center mb-2 rounded shadow-lg">
+        <span class="text-xs uppercase tracking-tighter">Gold Quant App v7.5</span>
+        <div id="status" class="flex items-center gap-1 text-[9px]">
+            <span class="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span> LIVE
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+        
+        <div class="bg-panel p-4 text-center border-l-4 border-red-600">
+            <div class="text-[10px] text-zinc-500 uppercase font-bold mb-1">XAUUSD Live Price</div>
+            <h1 class="text-6xl font-bold tracking-tighter mb-2" id="priceDisplay">----.--</h1>
+            <div id="signal" class="text-2xl font-bold text-red-500 underline decoration-double italic">AUTO_SELL</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+            <div class="bg-panel p-3">
+                <div class="text-zinc-500 text-[9px] uppercase">Sentiment</div>
+                <div class="text-xl font-bold text-red-500">65% LONG</div>
+                <div class="w-full bg-zinc-900 h-1 mt-1"><div class="bg-red-600 h-full" style="width: 65%"></div></div>
+            </div>
+            <div class="bg-panel p-3">
+                <div class="text-zinc-500 text-[9px] uppercase italic text-blue-400 font-bold">SM Target</div>
+                <div class="text-xl font-bold text-blue-400">4950.00</div>
+            </div>
+        </div>
+
+        <div class="bg-zinc-900/50 border border-zinc-800 p-3 rounded space-y-3">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                <span class="text-zinc-500 uppercase text-[9px]">Entry</span>
+                <span class="text-lg font-bold amber" id="valEntry">----.--</span>
+            </div>
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                <span class="text-red-500 uppercase text-[9px] font-bold">Stop Loss (24pts)</span>
+                <span class="text-lg font-bold text-red-500" id="valSL">----.--</span>
+            </div>
+            <div class="flex justify-between items-center text-green-500">
+                <span class="uppercase text-[9px]">TP 1 (RR 2)</span>
+                <span class="text-lg font-bold" id="valTP1">----.--</span>
+            </div>
+            <div class="flex justify-between items-center text-green-400 font-bold">
+                <span class="uppercase text-[9px]">TP 2 (RR 3)</span>
+                <span class="text-lg font-bold" id="valTP2">----.--</span>
+            </div>
+        </div>
+
+        <div class="bg-[#050505] p-2 border border-zinc-800 h-28 overflow-hidden font-mono text-[9px] text-zinc-600 rounded">
+            <div class="text-zinc-400 border-b border-zinc-800 mb-1 pb-1 uppercase font-bold">System Logs</div>
+            <div id="logs" class="flex flex-col-reverse">
+                <div>[SYSTEM] Mobile Engine Ready.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let lastPrice = 0;
+        const priceEl = document.getElementById('priceDisplay');
+
+        const connectWS = () => {
+            const ws = new WebSocket('wss://stream.binance.com:9443/ws/paxgusdt@ticker');
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                const price = parseFloat(data.c);
+                if (price > lastPrice) priceEl.className = "text-6xl font-bold price-up tracking-tighter mb-2";
+                else if (price < lastPrice) priceEl.className = "text-6xl font-bold price-down tracking-tighter mb-2";
+                priceEl.innerText = price.toFixed(2);
+                lastPrice = price;
+                updateStrategy(price);
+            };
+            ws.onclose = () => setTimeout(connectWS, 2000);
+        };
+
+        function updateStrategy(price) {
+            const risk = 24.00;
+            document.getElementById('valEntry').innerText = price.toFixed(2);
+            document.getElementById('valSL').innerText = (price + risk).toFixed(2);
+            document.getElementById('valTP1').innerText = (price - (risk * 2)).toFixed(2);
+            document.getElementById('valTP2').innerText = (price - (risk * 3)).toFixed(2);
+
+            if (price <= 4960) {
+                const ac = new AudioContext();
+                const o = ac.createOscillator();
+                o.connect(ac.destination);
+                o.start(); o.stop(ac.currentTime + 0.1);
+            }
+        }
+
+        connectWS();
+    </script>
+</body>
+</html>
